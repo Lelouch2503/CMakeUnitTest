@@ -18,3 +18,11 @@ target_link_libraries(${LIBRARY_NAME} PUBLIC
     cxxopts::cxxopts)
 target_include_directories(${LIBRARY_NAME} PUBLIC
     ${LIBRARY_INCLUDES})
+
+if(ENABLE_WARNINGS)
+    target_set_warnings(
+        ${LIBRARY_NAME}
+        ${ENABLE_WARNINGS}
+        ${ENABLED_AS_ERRORS}
+    )
+endif()

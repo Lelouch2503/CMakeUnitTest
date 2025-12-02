@@ -12,3 +12,11 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
     fmt::fmt
     spdlog::spdlog
     cxxopts::cxxopts)
+
+if(ENABLE_WARNINGS)
+    target_set_warnings(
+        ${EXECUTABLE_NAME}
+        ${ENABLE_WARNINGS}
+        ${ENABLED_AS_ERRORS}
+    )
+endif()

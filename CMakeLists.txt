@@ -9,12 +9,20 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
 option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
+option(ENABLE_WARNINGS "Enable warnings" ON)
+option(ENABLED_AS_ERRORS "Enable warnings as errors" ON)
+
+if(ENABLE_WARNINGS)
+    include(Warnings)
+endif()
 
 set(LIBRARY_NAME "Library")
 set(EXECUTABLE_NAME "Executable")
 
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
 include(AddGitSubmodule)
 include(FetchContent)
 include(Docs)
