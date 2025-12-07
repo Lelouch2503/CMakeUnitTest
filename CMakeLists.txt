@@ -20,8 +20,15 @@ option(ENABLED_AS_ERRORS "Enable warnings as errors" ON)
 option(ENABLE_SANITIZER_ADDR "Enable " ON)
 option(ENABLED_SANITIZER_UNDEF "Enable " ON)
 
+# Enable LTO
+option(ENABLED_LTO "Enable LTO" ON)
+
 if(ENABLE_WARNINGS)
     include(Warnings)
+endif()
+
+if(ENABLED_LTO)
+    include(LTO)
 endif()
 
 if(ENABLE_SANITIZER_ADDR OR ENABLED_SANITIZER_UNDEF)
@@ -79,8 +86,13 @@ add_subdirectory(configured)
 add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(app)
+
 if(ENABLE_TESTING)
     include(CTest)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+if(${ENABLED_LTO})
+    target_enable_lto(${LIBRARY_NAME} TRUE)
 endif()

@@ -20,3 +20,7 @@ if(ENABLE_WARNINGS)
         ${ENABLED_AS_ERRORS}
     )
 endif()
+
+if(${ENABLED_LTO})
+    target_enable_lto(${EXECUTABLE_NAME} TRUE)
+endif()

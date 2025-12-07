@@ -13,10 +13,10 @@ int main()
     std::cout << project_name << '\n';
     std::cout << project_version << '\n';
 
-    int x[2];
+    int x[2] = {0, 1};
     x[2] = 5; // Intentional out-of-bounds access to test AddressSanitizer
 
-    int i = new int();
+    int *i = new int();
 
     std::cout << "JSON:" << NLOHMANN_JSON_VERSION_MAJOR << "." << NLOHMANN_JSON_VERSION_MINOR << "."
               << NLOHMANN_JSON_VERSION_PATCH << "\n";
