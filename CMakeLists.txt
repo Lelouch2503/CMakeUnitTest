@@ -11,12 +11,22 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
+# Enable Warnings
 option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(ENABLE_WARNINGS "Enable warnings" ON)
 option(ENABLED_AS_ERRORS "Enable warnings as errors" ON)
 
+# Enable Sanitizers
+option(ENABLE_SANITIZER_ADDR "Enable " ON)
+option(ENABLED_SANITIZER_UNDEF "Enable " ON)
+
 if(ENABLE_WARNINGS)
     include(Warnings)
+endif()
+
+if(ENABLE_SANITIZER_ADDR OR ENABLED_SANITIZER_UNDEF)
+    include(Sanitizers)
+    add_sanitizer_flags()
 endif()
 
 set(LIBRARY_NAME "Library")
