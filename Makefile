@@ -1,6 +1,13 @@
 build_without_errors:
 	# cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graphImage.png
-	mkdir -p build_result && cd build && cmake -DENABLED_AS_ERRORS=OFF -DCMAKE_BUILD_TYPE=Release .. && cmake --build . 2>&1 | tee ../build_result/build_log.txt
+		
+	rm -rf build && mkdir build && mkdir -p build_result && cd build && cmake \
+	-DENABLED_AS_ERRORS=OFF \
+	-DUSE_CPM=OFF \
+	-DUSE_CONAN=OFF \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_TOOLCHAIN_FILE=../external/vcpkg/scripts/buildsystems/vcpkg.cmake \
+	.. && cmake --build . 2>&1 | tee ../build_result/build_log.txt
 
 build_with_errors:
 	# cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graphImage.png
