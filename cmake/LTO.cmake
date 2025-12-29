@@ -1,15 +1,19 @@
-function(target_enable_lto TARGET ENABLE)
-    if(NOT ${ENABLE})
-        return()
-    endif()
+function(target_enable_lto)
+    set(oneValueArgs TARGET ENABLE)
+    cmake_parse_arguments(
+        LTO
+        "${options}"
+        "${oneValueArgs}"
+        "${multiValueArgs}"
+        ${ARGN})
 
     include(CheckIPOSupported)
     check_ipo_supported(RESULT result OUTPUT output)
-
     if(result)
-        message(STATUS "LTO enabled for target ${TARGET}")
-        set_property(TARGET ${TARGET} PROPERTY INTERPROCEDURAL_OPTIMIZATION ${ENABLE})
+        message(STATUS "IPO/LTO is supported: ${LTO_TARGET}")
+        set_property(TARGET ${LTO_TARGET} PROPERTY INTERPROCEDURAL_OPTIMIZATION
+                                                   ${LTO_ENABLE})
     else()
-        message(WARNING "IPO/LTO not supported: ${output}")
+        message(WARNING "IPO/LTO is not supported: ${LTO_TARGET}")
     endif()
-endfunction(target_enable_lto)
+endfunction()

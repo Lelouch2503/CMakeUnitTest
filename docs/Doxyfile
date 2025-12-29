@@ -7,18 +7,12 @@
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING       = UTF-8
 PROJECT_NAME            = "C++ Project Template"
-PROJECT_NUMBER          = 1.0
+PROJECT_NUMBER          = 1.0.0
 PROJECT_BRIEF           =
 PROJECT_LOGO            =
 OUTPUT_DIRECTORY        = ./
 OUTPUT_LANGUAGE         = English
 MARKDOWN_SUPPORT        = YES
-
-#---------------------------------------------------------------------------
-# Configure Graphs
-#---------------------------------------------------------------------------
-HAVE_DOT               = YES
-INCLUDE_GRAPH          = YES
 
 #---------------------------------------------------------------------------
 # Build related configuration options
@@ -37,11 +31,7 @@ INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cc \
                          *.cpp \
-                         *.c++ \
                          *.h \
                          *.hpp \
-                         *.h++ \
                          *.md \
-                         *.dox \
-                         *.doc \
                          *.txt

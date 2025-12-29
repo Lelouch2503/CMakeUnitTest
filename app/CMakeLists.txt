@@ -1,26 +1,34 @@
-set(EXE_SOURCES
-    "main.cc")
-set(EXE_INCLUDES
-    "./")
+set(APP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/main.cc")
 
-add_executable(${EXECUTABLE_NAME} ${EXE_SOURCES})
-target_include_directories(${EXECUTABLE_NAME} PUBLIC
-    ${EXE_INCLUDES})
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC
-    ${LIBRARY_NAME}
-    nlohmann_json::nlohmann_json
-    fmt::fmt
-    spdlog::spdlog
-    cxxopts::cxxopts)
+add_executable(${EXECUTABLE_NAME} ${APP_SOURCES})
 
-if(ENABLE_WARNINGS)
+target_link_libraries(
+    ${EXECUTABLE_NAME}
+    PRIVATE "LibFoo"
+            "LibBar"
+            nlohmann_json::nlohmann_json
+            fmt::fmt
+            spdlog::spdlog
+            cxxopts::cxxopts)
+
+if(${ENABLE_WARNINGS})
     target_set_warnings(
+        TARGET
         ${EXECUTABLE_NAME}
+        ENABLE
         ${ENABLE_WARNINGS}
-        ${ENABLED_AS_ERRORS}
-    )
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
 endif()
 
-if(${ENABLED_LTO})
-    target_enable_lto(${EXECUTABLE_NAME} TRUE)
+if(${ENABLE_LTO})
+    target_enable_lto(
+        TARGET
+        ${EXECUTABLE_NAME}
+        ENABLE
+        ON)
+endif()
+
+if(${ENABLE_CLANG_TIDY})
+    add_clang_tidy_to_target(${EXECUTABLE_NAME})
 endif()

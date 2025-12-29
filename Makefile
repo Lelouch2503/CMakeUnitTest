@@ -1,27 +1,21 @@
-build_without_errors:
-	# cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graphImage.png
-		
-	rm -rf build && mkdir build && mkdir -p build_result && cd build && cmake \
-	-DENABLED_AS_ERRORS=OFF \
-	-DUSE_CPM=OFF \
-	-DUSE_CONAN=OFF \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_TOOLCHAIN_FILE=../external/vcpkg/scripts/buildsystems/vcpkg.cmake \
-	.. && cmake --build . 2>&1 | tee ../build_result/build_log.txt
+all: prepare
 
-build_with_errors:
-	# cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graphImage.png
-	mkdir -p build_result && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build . 2>&1 | tee ../build_result/build_log.txt
+install:
+	sudo apt-get install gcc g++ cmake make doxygen git llvm pkg-config curl zip unzip tar python3-dev clang-format clang-tidy
 
 prepare:
 	rm -rf build
 	mkdir build
+
 conan_d:
 	rm -rf build
 	mkdir build
-	cd build && conan install .. -s build_type=Debug -s compiler.cppstd=17 --output-folder=. --build missing | tee ../build_result/build_log.txt
+	cd build && conan install .. -s build_type=Debug --output-folder=. --build missing -s compiler.cppstd=17
 
 conan_r:
 	rm -rf build
 	mkdir build
-	cd build && conan install .. -s build_type=Release -s compiler.cppstd=17 --output-folder=. --build missing | tee ../build_result/build_log.txt
+	cd build && conan install .. -s build_type=Release --output-folder=. --build missing -s compiler.cppstd=17
+
+clean:
+	rm -rf build
