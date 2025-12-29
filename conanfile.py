@@ -8,7 +8,7 @@ class CompressorRecipe(ConanFile):
 
     def requirements(self):
         self.requires("nlohmann_json/3.11.3")
-        self.requires("fmt/10.0.0")
+        self.requires("fmt/10.2.1")
         self.requires("spdlog/1.13.0")
         self.requires("catch2/3.5.3")
         self.requires("cxxopts/3.1.1")
